@@ -1,0 +1,142 @@
+What is SQL? → Language to interact with databases.
+What is a Database? → Organized collection of data.
+What is SQL?
+    SQL = Structured Query Language
+   It is used to create, read, update, and delete data in databases (CRUD operations).
+    Works with RDBMS (Relational Database Management Systems) like PostgreSQL, MySQL, Oracle, SQL Server, etc.
+
+Common SQL databases: MySQL, PostgreSQL, SQLite, SQL Server, Oracle.
+Basic sql commands:
+These are the foundation:
+
+SELECT → Retrieve data
+	SELECT name, phone FROM students;
+WHERE → Filter results
+	SELECT * FROM students WHERE phone = '12345';
+ORDER BY → Sort results
+	SELECT * FROM students ORDER BY name ASC;
+LIMIT → Restrict number of rows
+
+DISTINCT → Remove duplicates
+	SELECT DISTINCT department
+	FROM enroll1;
+UNION → Combine results of two queries (removes duplicates by default).
+	SELECT name FROM students
+	UNION
+	SELECT name FROM teachers;
+
+
+Work with Data
+
+INSERT → Add data
+
+UPDATE → Modify data
+
+DELETE → Remove data
+Intermediate SQL
+
+Joins: INNER JOIN, LEFT JOIN, RIGHT JOIN, FULL JOIN
+
+Aggregations: COUNT(), SUM(), AVG(), MAX(), MIN()
+
+Grouping: GROUP BY, HAVING
+Advanced SQL
+
+Subqueries
+
+Window Functions (ROW_NUMBER(), RANK(), OVER())
+
+CTEs (Common Table Expressions) with WITH
+
+Indexes & Performance Tuning
+
+Transactions (BEGIN, COMMIT, ROLLBACK)
+Practice, Practice, Practice
+
+Use SQLite (very simple, file-based) or MySQL/PostgreSQL (more advanced).
+
+Practice platforms:
+
+SQLZoo---- https://sqlzoo.net/
+
+LeetCode SQL problems---- https://leetcode.com/problemset/database/
+
+HackerRank SQL track---- https://www.hackerrank.com/domains/sql
+
+Aggregate Functions
+	These let you summarize data:
+	COUNT() → count rows
+	SUM() → sum of a numeric column
+	AVG() → average
+	MAX() / MIN() → highest / lowest value
+	-- Count how many students are enrolled in each course
+	SELECT c.course_name, COUNT(e.student_id) AS total_students
+	FROM enroll e
+	JOIN courses c ON e.course_id = c.course_id
+	GROUP BY c.course_name;
+
+GROUP BY and HAVING
+	GROUP BY → groups rows by a column
+	HAVING → filter groups (like WHERE but for grouped data)
+	-- Show courses with more than 1 student
+	SELECT c.course_name, COUNT(e.student_id) AS total_students
+	FROM enroll e
+	JOIN courses c ON e.course_id = c.course_id
+	GROUP BY c.course_name
+	HAVING COUNT(e.student_id) > 1;
+
+ORDER BY
+	SELECT * FROM students
+	ORDER BY name ASC;  -- ascending
+	SELECT * FROM students
+	ORDER BY age DESC;  -- descending
+LIMIT / OFFSET
+	SELECT * FROM students
+	ORDER BY id
+	LIMIT 3;        -- first 3 students
+Subqueries
+	A query inside another query
+
+	-- Find students who are enrolled in the course 'Calculus'
+	SELECT name FROM students
+	WHERE id IN (
+    	SELECT student_id FROM enroll
+    	JOIN courses ON enroll.course_id = courses.course_id
+    	WHERE course_name = 'Calculus'
+	);
+Combining Tables in Different Ways
+	INNER JOIN → only matching rows
+	LEFT JOIN → all rows from left table + matches from right table
+	RIGHT JOIN → all rows from right table + matches from left
+	FULL OUTER JOIN → all rows from both tables
+Combining Tables in Different Ways
+	INNER JOIN → only matching rows
+	LEFT JOIN → all rows from left table + matches from right table
+	RIGHT JOIN → all rows from right table + matches from left
+	FULL OUTER JOIN → all rows from both tables
+AS (Alias)
+    	Purpose:
+	Give a temporary name to a column or table in the result.
+	Makes queries easier to read.
+like 
+	SELECT name FROM students WHERE name LIKE 'A%';  -- starts with A
+IN
+	Purpose: Match multiple values.
+	SELECT * FROM students WHERE id IN (1, 2, 3);
+BETWEEN
+	Purpose: Filter within a range
+	SELECT * FROM students WHERE id BETWEEN 1 AND 3;
+STRING_AGG() (PostgreSQL)
+	purpose: Combine multiple rows into a single string.
+	SELECT STRING_AGG(course_name, ', ') FROM courses;
+changes in the table:
+	ALTER TABLE
+		Purpose: Modify a table (add/drop column, add constraints).
+		ALTER TABLE enrolll ADD COLUMN grade CHAR(1);
+		ALTER TABLE enrolll DROP COLUMN grade;
+	DELETE: Remove rows
+		DELETE FROM students WHERE id = 3;
+	UPDATE: Modify rows
+		UPDATE students SET phone = '99999' WHERE id = 1;
+	DROP: Delete table
+		DROP TABLE students;

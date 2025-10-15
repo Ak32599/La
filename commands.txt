@@ -1,0 +1,27 @@
+create database name; - to create a directory
+create table std( id serial primary key, name varchar(50),age
+int,depart varchar(50); --> creartion of table here we use serial it helps that the entered data be in an order it assigns the serial numbers automatically and using primary key we should enter the uniqueue data for them else it shows errr
+insertion of data--insert(nme,age,depart) values ('rahul',18,'computer science');
+select * from std; -- to show the all data
+select name,age from std where age>19; -- showing of specific data
+select name,age from std order by age asc;
+forign key -- the data must present in the other table,ensures the ID really exists in the parent table.
+   FOREIGN KEY (course_id) REFERENCES courses(course_id)
+---
+creation of column after creation of table:
+ALTER TABLE table_name
+ADD COLUMN column_name data_type;
+deletion of column:
+ALTER TABLE table_name
+   DROP COLUMN column_name;
+to  update table:
+   update tablename set age=99 where id=3;
+complete deletion of table
+   DROP TABLE table_name;
+
+---
+to clear the terminal ---------- \! cls
+to change database ------------- \c name
+to see present working database -- \c
+to see all present databases ---- \list	,	\dt
+to see the clear datatypes of a table -- \d tablename
